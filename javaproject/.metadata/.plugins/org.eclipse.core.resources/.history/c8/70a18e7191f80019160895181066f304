@@ -1,0 +1,343 @@
+import java.awt.Button;
+
+import java.awt.Canvas;
+
+import java.awt.Checkbox;
+
+import java.awt.CheckboxGroup;
+
+import java.awt.Color;
+
+import java.awt.FileDialog;
+
+import java.awt.Frame;
+
+import java.awt.Graphics;
+
+import java.awt.Image;
+
+import java.awt.Label;
+
+import java.awt.Panel;
+
+import java.awt.ScrollPane;
+
+import java.awt.Toolkit;
+
+import java.awt.event.ActionEvent;
+
+import java.awt.event.ActionListener;
+
+import java.awt.event.ItemEvent;
+
+import java.awt.event.ItemListener;
+
+import java.awt.event.WindowAdapter;
+
+import java.awt.event.WindowEvent;
+
+
+
+public class KeyEvent extends Frame implements ActionListener,ItemListener
+
+{
+
+Checkbox cb1,cb2,cb3,cb4;
+
+Checkbox cbFill;
+
+Button btn;
+
+Label lbl;
+
+Toolkit toolkit = Toolkit.getDefaultToolkit();
+
+Image img;
+
+int w,h;
+
+String filePath;
+
+int idx=1;
+
+
+
+Color color = Color.magenta;
+
+
+
+int shape =1; // 체크버튼 초기값
+
+DrawCanveas draw = new DrawCanveas();
+
+
+
+
+
+public KeyEvent(String title)
+
+{
+
+    super(title);
+
+    this.setBounds(300,100,300,400);
+
+    this.setBackground(Color.CYAN);
+
+    
+
+    this.addWindowListener(new WindowAdapter()
+
+                           {
+
+                               @Override
+
+                               public void windowClosing(WindowEvent e) 
+
+                               {
+
+                                   System.exit(0);
+
+                                   super.windowClosing(e);
+
+                               }
+
+                           });//윈도 이벤트 발생.
+
+    
+
+    this.setDesign();
+
+    this.setVisible(true);
+
+    
+
+}
+
+
+
+public void setDesign()
+
+{
+
+    //center 에 갠버스.
+
+    this.add("Center",draw);
+
+    
+
+    ScrollPane sp = new ScrollPane();
+
+    sp.add(draw);
+
+    this.add("Center",sp);
+
+    
+
+    //상단에 체크박스들.
+
+    Panel pTop = new Panel();
+
+    Panel pBottom =new Panel();
+
+    
+
+    CheckboxGroup cbg= new CheckboxGroup();
+
+    cb1= new Checkbox("원본.",true,cbg);
+
+    cb2= new Checkbox("좌우.",false,cbg);
+
+    cb3=new Checkbox("상하.",false,cbg);
+
+    cb4=new Checkbox("상하좌우.",false,cbg);
+
+    
+
+    pTop.add(cb1);
+
+    pTop.add(cb2);
+
+    pTop.add(cb3);
+
+    pTop.add(cb4);
+
+    
+
+    pTop.setBackground(Color.gray);
+
+    this.add("North",pTop);
+
+    
+
+    btn = new Button("확인버튼");
+
+    lbl= new Label("이곳은 라벨이 있어");
+
+    pBottom.add(lbl);
+
+    pBottom.add(btn);
+
+    btn.addActionListener(this);
+
+    pBottom.setBackground(Color.pink);
+
+    this.add("South",pBottom);
+
+    
+
+    
+
+    //이벤트 등록
+
+    cb1.addItemListener(this);
+
+    cb2.addItemListener(this);
+
+    cb3.addItemListener(this);
+
+    cb4.addItemListener(this);
+
+    
+
+    
+
+}
+
+class DrawCanveas extends Canvas
+
+{
+
+@Override
+
+public void paint(Graphics g) 
+
+{
+
+    img=toolkit.getImage(filePath);
+
+    w=img.getHeight(this);
+
+    h=img.getWidth(this);	
+
+    
+
+    switch (idx)
+
+    {
+
+        case 1:
+
+            g.drawImage(img,10,10,250,270,0,0,w,h,this);
+
+            break;
+
+        case 2:
+
+            g.drawImage(img, 10, 10, 250, 270, w, 0, 0, h, this);
+
+            break;
+
+			
+
+        case 3: 
+
+            g.drawImage(img, 10, 10, 250, 270, 0, h, w, 0, this);
+
+            break;
+
+            
+
+        case 4:
+
+            g.drawImage(img, 10, 10, 250, 270, w, h, 0, 0, this);
+
+            break;
+
+            
+
+        default:
+
+            break;
+
+    }
+
+}
+
+}
+
+
+
+
+
+@Override
+
+public void itemStateChanged(ItemEvent e) 
+
+{
+
+    Object cb=e.getSource();
+
+    if(cb == cb1)
+
+        idx = 1;
+
+    else if(cb ==cb2)
+
+        idx=2;
+
+    else if(cb == cb3)
+
+        idx=3;
+
+    else if(cb==cb4)
+
+        idx=4;
+
+    
+
+    draw.repaint();
+
+}
+
+
+
+@Override
+
+public void actionPerformed(ActionEvent e)
+
+{
+
+    FileDialog dlg= new FileDialog(this,"Load Image",FileDialog.LOAD);
+
+    dlg.setVisible(true);
+
+    
+
+    filePath = dlg.getDirectory()+dlg.getFile();
+
+    //		System.out.println(filePath);
+
+    draw.repaint();
+
+
+
+
+
+    
+
+}
+
+
+
+public static void main(String[] args) 
+
+{
+
+    KeyEvent imagetest= new KeyEvent("이미지 테스트");
+
+    
+
+}
+
+}

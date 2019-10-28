@@ -1,0 +1,27 @@
+package wantHome;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+
+public class Game extends JFrame{
+	
+	final int FLYING_UNIT=10;
+	
+	JLabel la1 =new JLabel("Areum");
+    JLabel la2 =new JLabel("AMAMA");
+	
+	Game() {
+		WantHome.introBackground = new ImageIcon(Main.class.getResource("../images/map.png")).getImage();
+		la1.setLocation(50,50);
+        la1.setSize(100,20);
+        
+        la2.setLocation(50,370);
+        la2.setSize(100,20);
+        
+        
+		add(la1);
+		add(la2);
+    }	
+}

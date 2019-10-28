@@ -1,0 +1,5 @@
+INDEX VERSION 1.131+D:\지우지마\2학년\과제\자바\javaproject\.metadata\.plugins\org.eclipse.jdt.core
+3460386709.index
+3892838763.index
+3271193799.index
+524819999.index

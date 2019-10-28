@@ -1,0 +1,25 @@
+package wantHome;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class Game extends JFrame{
+	
+	Game() {
+        setTitle("새로 띄운 창");
+        setSize(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
+        setVisible(true);
+        setLocation(0,0);
+        
+        JPanel NewWindowContainer = new JPanel();
+        setContentPane(NewWindowContainer);
+        
+        JLabel NewLabel = new JLabel("새 창을 띄우는데 성공!");
+        
+        NewWindowContainer.add(NewLabel);
+         
+    }	
+}

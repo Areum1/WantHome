@@ -1,0 +1,316 @@
+package wantHome;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+
+public class WantHome extends JFrame {
+
+	private Image screenImage;
+	private Graphics screenGraphic;
+
+	public static Image introBackground = new ImageIcon(Main.class.getResource("../images/mainImage.png")).getImage();
+	private JLabel menuBar = new JLabel(new ImageIcon(Main.class.getResource("../images/menuBar.png")));
+
+	private ImageIcon exitButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/PressedExitButton.png"));
+	private ImageIcon exitButtonImage = new ImageIcon(Main.class.getResource("../images/exitButton.png"));
+
+	private ImageIcon startButtonImage = new ImageIcon(Main.class.getResource("../images/StartButton.png"));
+	private ImageIcon startButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/PressedStartButton.png"));
+	private ImageIcon settingButtonImage = new ImageIcon(Main.class.getResource("../images/SettingButton.png"));
+	private ImageIcon settingButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/PressedSettingButton.png"));	
+	
+	private ImageIcon soundButtonImage = new ImageIcon(Main.class.getResource("../images/SoundOn.png"));
+	private ImageIcon soundButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/SoundOff.png"));
+	private ImageIcon houseButtonImage = new ImageIcon(Main.class.getResource("../images/houseButton.png"));
+	private ImageIcon houseButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/Pressedhouse.png"));
+	
+	private ImageIcon PlayerImage1 = new ImageIcon(Main.class.getResource("../images/Player1-3.gif"));
+	private ImageIcon PlayerImage2 = new ImageIcon(Main.class.getResource("../images/Player2.gif"));
+	
+	private ImageIcon gameBackgroundImage1 = new ImageIcon(Main.class.getResource("../images/map1.png"));
+	private ImageIcon gameBackgroundImage2 = new ImageIcon(Main.class.getResource("../images/map2.png"));
+	
+	private JButton soundButton = new JButton(soundButtonImage);
+	private JButton houseButton = new JButton(houseButtonImage);
+	
+	private JButton exitButton = new JButton(exitButtonImage);
+	private JButton startButton = new JButton(startButtonImage);
+	private JButton settingButton = new JButton(settingButtonImage);
+	
+	JLabel la1 ;
+    JLabel la2 ;
+    JLabel GameBackground1 ;
+    JLabel GameBackground2 ;
+    
+    final int FLYING_UNIT=10;
+    boolean SoundButtonBool = true;
+    
+
+	private int mouseX, mouseY;
+
+	public WantHome() {
+		setUndecorated(true);
+		setTitle("I want go home");
+		setSize(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+		setResizable(false);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
+		setBackground(new Color(0, 0, 0, 0));
+		setLayout(null);
+		setLocation(0,0);
+		addKeyListener(new MyKeyListener());
+		
+		la1 = new JLabel(PlayerImage1);
+		la2 = new JLabel(PlayerImage2);
+		
+		la1.setLocation(50,130);
+        la1.setSize(100,140);
+        
+        la2.setLocation(50,430);
+        la2.setSize(100,140);
+        
+        GameBackground1 = new JLabel(gameBackgroundImage1);
+        GameBackground2 = new JLabel(gameBackgroundImage2);
+        
+        GameBackground1.setLocation(0,0);
+        GameBackground1.setSize(300,12000);
+        
+        GameBackground2.setLocation(0,300);
+        GameBackground2.setSize(300,12000);
+		
+		Music introMusic = new Music("introMusic.mp3", true);
+		introMusic.start();
+		
+		exitButton.setBounds(870, 2, 25, 25);
+		exitButton.setBorderPainted(false);
+		exitButton.setContentAreaFilled(false);
+		exitButton.setFocusPainted(false);
+		exitButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				exitButton.setIcon(exitButtonEnteredImage);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				exitButton.setIcon(exitButtonImage);
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				System.exit(0);
+			}
+		});
+		add(exitButton);
+
+		startButton.setBounds(300, 300, 300, 100);
+		startButton.setBorderPainted(false);
+		startButton.setContentAreaFilled(false);
+		startButton.setFocusPainted(false);
+		startButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				startButton.setIcon(startButtonEnteredImage);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				startButton.setIcon(startButtonImage);
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				introMusic.close();
+				GameStart();
+			}
+		});
+		add(startButton);
+
+		settingButton.setBounds(300, 420, 300, 100);
+		settingButton.setBorderPainted(false);
+		settingButton.setContentAreaFilled(false);
+		settingButton.setFocusPainted(false);
+		settingButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				settingButton.setIcon(settingButtonEnteredImage);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				settingButton.setIcon(settingButtonImage);
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				startButton.setVisible(false);
+				settingButton.setVisible(false);
+				soundButton.setBounds(100, 415, 150, 70);
+				soundButton.setBorderPainted(false);
+				soundButton.setContentAreaFilled(false);
+				soundButton.setFocusPainted(false);
+				soundButton.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+					}
+
+					@Override
+					public void mouseExited(MouseEvent e) {
+					}
+
+					@Override
+					public void mousePressed(MouseEvent e) {
+						if(SoundButtonBool == true) {
+							introMusic.close();
+							soundButton.setIcon(soundButtonEnteredImage);
+							System.out.println("버튼 누르기");
+						}
+						else {
+							introMusic.start();
+							soundButton.setIcon(soundButtonImage);
+							System.out.println("버튼 안 누르기");
+						}
+					}
+				});
+				add(soundButton);
+				
+				houseButton.setBounds(640, 390, 200, 200);
+				houseButton.setBorderPainted(false);
+				houseButton.setContentAreaFilled(false);
+				houseButton.setFocusPainted(false);
+				houseButton.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						houseButton.setIcon(houseButtonEnteredImage);
+					}
+
+					@Override
+					public void mouseExited(MouseEvent e) {
+						houseButton.setIcon(houseButtonImage);
+					}
+
+					@Override
+					public void mousePressed(MouseEvent e) {
+						introMusic.close();
+						soundButton.setVisible(false);
+						houseButton.setVisible(false);
+						GameStart();
+					}
+				});
+				add(houseButton);
+				
+				WantHome.introBackground = new ImageIcon(Main.class.getResource("../images/SettingBackground.png")).getImage();
+			}
+		});
+		add(settingButton);
+
+		menuBar.setBounds(0, 0, 900, 30);
+		menuBar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				mouseX = e.getX();
+				mouseY = e.getY();
+			}
+		});
+		menuBar.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int x = e.getXOnScreen();
+				int y = e.getYOnScreen();
+				setLocation(x - mouseX, y - mouseY);
+			}
+		});
+
+		add(menuBar);
+
+		
+	}
+
+	public void paint(Graphics g) {
+		screenImage = createImage(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+		screenGraphic = screenImage.getGraphics();
+		screenDraw(screenGraphic);
+		g.drawImage(screenImage, 0, 0, null);
+	}
+
+	public void screenDraw(Graphics g) {
+		g.drawImage(introBackground, 0, 0, null);
+		paintComponents(g);
+		this.repaint();
+	}
+	
+	public void GameStart() {
+		WantHome.introBackground = new ImageIcon(Main.class.getResource("../images/map.png")).getImage();
+		add(GameBackground1);
+		add(GameBackground2);
+		
+		startButton.setVisible(false);
+		settingButton.setVisible(false);
+		
+		add(la1);
+		add(la2);
+	}
+	
+	class MyKeyListener extends Thread implements KeyListener  {
+        @Override
+        public void keyTyped(KeyEvent e) {
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            int keyCode =e.getKeyCode();
+            
+            switch(keyCode){
+                case KeyEvent.VK_UP:
+                	if(la1.getY() < 40)
+                		la1.setLocation(la1.getX(), la1.getY()+FLYING_UNIT);
+                	for (int i = 0; i<10;i++) {
+                		la1.setLocation(la1.getX(), la1.getY()-i);
+                		la1.setLocation(la1.getX()+i, la1.getY());
+                		la1.setLocation(la1.getX(), la1.getY()+i);
+                	}
+                     System.out.println(la1.getX()+" "+la1.getY()); break;
+                     
+                case KeyEvent.VK_RIGHT:
+                    la1.setLocation(la1.getX()+FLYING_UNIT, la1.getY()); break;
+                case KeyEvent.VK_LEFT:
+                    la1.setLocation(la1.getX()-FLYING_UNIT, la1.getY()); break;
+                case 87:
+                	if(la2.getY() < 310)
+                		la2.setLocation(la2.getX(), la2.getY()+FLYING_UNIT);
+                	for (int i = 0; i<10;i++) {
+                		la2.setLocation(la2.getX(), la2.getY()-i);
+                		la2.setLocation(la2.getX()+i, la2.getY());
+                		la2.setLocation(la2.getX(), la2.getY()+i);
+                	}
+                     System.out.println(la2.getX()+" "+la2.getY());
+	                 break;
+	            case 83:
+	            	if(la2.getY() > 510)
+                		la2.setLocation(la2.getX(), la2.getY()-FLYING_UNIT);
+	                la2.setLocation(la2.getX(), la2.getY()+FLYING_UNIT); System.out.println(la2.getX()+" "+la2.getY()); break;
+	            case 68:
+	                la2.setLocation(la2.getX()+FLYING_UNIT, la2.getY()); break;
+	            case 65:
+	                la2.setLocation(la2.getX()-FLYING_UNIT, la2.getY()); break;
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+        }
+	}
+}

@@ -1,0 +1,38 @@
+package wantHome;
+
+import java.awt.Graphics;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+
+
+public class Game extends JFrame{
+	
+	private Image screenImage;
+	private Graphics screenGraphic;
+    
+	private Image map = new ImageIcon(Main.class.getResource("../images/map.png")).getImage();
+	
+	Game() {
+        setTitle("»õ·Î ¶ç¿î Ã¢");
+        setSize(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
+        setVisible(true);
+        setLocation(0,0);
+    }	
+	
+	public void paint(Graphics g) {
+		screenImage = createImage(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+		screenGraphic = screenImage.getGraphics();
+		screenDraw(screenGraphic);
+		g.drawImage(screenImage, 0, 0, null);
+	}
+
+	public void screenDraw(Graphics g) {
+		g.drawImage(introBackground, 0, 0, null);
+		paintComponents(g);
+		this.repaint();
+	}
+}

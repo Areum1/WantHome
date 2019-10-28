@@ -1,0 +1,68 @@
+package test;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.event.*;
+
+class FlyingTextEx extends JFrame{
+    JPanel contentPane = new JPanel();
+    JLabel la =new JLabel("Hello");
+    final int FLYING_UNIT=10;
+    
+    FlyingTextEx(){
+        this.setTitle("상하좌우키를 눌러 텍스트 움직이기");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        this.setContentPane(contentPane);
+        contentPane.setLayout(null);
+        contentPane.addKeyListener(new MyKeyListener());
+        
+        la.setLocation(50,50);
+        la.setSize(100,20);
+        contentPane.add(la);
+        
+        this.setSize(300,300);
+        this.setVisible(true);
+        
+        contentPane.requestFocus();
+    }
+    class MyKeyListener implements KeyListener{
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            int keyCode =e.getKeyCode();
+            
+            switch(keyCode){
+                case KeyEvent.VK_UP:
+                    la.setLocation(la.getX(), la.getY()-FLYING_UNIT); break;
+                case KeyEvent.VK_DOWN:
+                    la.setLocation(la.getX(), la.getY()+FLYING_UNIT); break;
+                case KeyEvent.VK_RIGHT:
+                    la.setLocation(la.getX()+FLYING_UNIT, la.getY()); break;
+                case KeyEvent.VK_LEFT:
+                    la.setLocation(la.getX()-FLYING_UNIT, la.getY()); break;
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+        }
+        
+    }
+}
+
+public class JavaApplication17 {
+
+    public static void main(String[] args) {
+        new FlyingTextEx();
+    }
+    
+}
+
+
+출처: https://whiteit.tistory.com/entry/자바-소스코드-상하좌우-키를-눌러-텍스트-움직이기 [소스코드 저장소:: For Example]

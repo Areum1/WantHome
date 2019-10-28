@@ -1,0 +1,10 @@
+package wantHome;
+
+import javax.swing.ImageIcon;
+
+public class Setting {
+
+	Setting(){
+		introBackground = new ImageIcon(Main.class.getResource("../images/SettingBackground.png")).getImage();
+	}
+}

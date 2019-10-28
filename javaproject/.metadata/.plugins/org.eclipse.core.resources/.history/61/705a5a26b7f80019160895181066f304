@@ -1,0 +1,80 @@
+package test;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.event.*;
+
+class textTest extends JFrame{
+    JPanel contentPane = new JPanel();
+    JLabel la1 =new JLabel("Areum");
+    JLabel la2 =new JLabel("AMAMA");
+    final int FLYING_UNIT=10;
+    
+    textTest(){
+        this.setTitle("상하좌우키를 눌러 텍스트 움직이기");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        this.setContentPane(contentPane);
+        contentPane.setLayout(null);
+        contentPane.addKeyListener(new MyKeyListener());
+        
+        la1.setLocation(50,50);
+        la1.setSize(100,20);
+        contentPane.add(la1);
+        
+        la2.setLocation(100,100);
+        la2.setSize(100,20);
+        contentPane.add(la2);
+        
+        setSize(900,600);
+        setVisible(true);
+        
+        contentPane.requestFocus();
+    }
+    class MyKeyListener implements KeyListener{
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            int keyCode =e.getKeyCode();
+            
+            switch(keyCode){
+                case KeyEvent.VK_UP:
+                    la1.setLocation(la1.getX(), la1.getY()-FLYING_UNIT); System.out.println(la1.getX()+" "+la1.getY()); break;
+                case KeyEvent.VK_DOWN:
+                	if(la1.getY() > 400)
+                		la1.setLocation(la1.getX(), la1.getY()-FLYING_UNIT);
+                    la1.setLocation(la1.getX(), la1.getY()+FLYING_UNIT); System.out.println(la1.getX()+" "+la1.getY()); break;
+                case KeyEvent.VK_RIGHT:
+                    la1.setLocation(la1.getX()+FLYING_UNIT, la1.getY()); break;
+                case KeyEvent.VK_LEFT:
+                    la1.setLocation(la1.getX()-FLYING_UNIT, la1.getY()); break;
+                case 87:
+	                la2.setLocation(la2.getX(), la2.getY()-FLYING_UNIT); break;
+	            case 83:
+	                la2.setLocation(la2.getX(), la2.getY()+FLYING_UNIT); break;
+	            case 68:
+	                la2.setLocation(la2.getX()+FLYING_UNIT, la2.getY()); break;
+	            case 65:
+	                la2.setLocation(la2.getX()-FLYING_UNIT, la2.getY()); break;
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+        }
+        
+    }
+}
+
+public class textTest {
+
+    public static void main(String[] args) {
+        new FlyingTextEx();
+    }
+    
+}

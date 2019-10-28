@@ -1,0 +1,15 @@
+package wantHome;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
+public class Setting {
+
+	private ImageIcon soundButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/SoundOff.png"));
+	
+	private JButton soundButton = new JButton(soundButtonImage);
+	
+	Setting(){
+		WantHome.introBackground = new ImageIcon(Main.class.getResource("../images/SettingBackground.png")).getImage();
+	}
+}

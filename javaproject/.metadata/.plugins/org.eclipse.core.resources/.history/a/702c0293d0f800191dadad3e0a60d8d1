@@ -1,0 +1,14 @@
+package wantHome;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+
+
+public class Game extends JFrame{
+	Game() {
+		WantHome.introBackground = new ImageIcon(Main.class.getResource("../images/map.png")).getImage();
+		
+		add(la1);
+		add(la2);
+    }	
+}
