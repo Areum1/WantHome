@@ -1,15 +1,26 @@
 package wantHome;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+// 해야할 일
+// 게임화면에 창닫기 버튼 만들기
 
 public class Game extends JFrame{
+	private Image screenImage;
+	private Graphics screenGraphic;
+	
+	public static Image introBackground = new ImageIcon(Main.class.getResource("../images/mainImage.png")).getImage();
 	
 	JLabel la1 =new JLabel("Areum");
     JLabel la2 =new JLabel("Aromi");
@@ -38,8 +49,22 @@ public class Game extends JFrame{
         add(la1);
 		add(la2);
 		
-		WantHome.introBackground = new ImageIcon(Main.class.getResource("../images/map.png")).getImage();
+		introBackground = new ImageIcon(Main.class.getResource("../images/map.png")).getImage();		
     }	
+	
+	public void paint(Graphics g) {
+		screenImage = createImage(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+		screenGraphic = screenImage.getGraphics();
+		screenDraw(screenGraphic);
+		g.drawImage(screenImage, 0, 0, null);
+	}
+	
+	public void screenDraw(Graphics g) {
+		g.drawImage(introBackground, 0, 0, null);
+		paintComponents(g);
+		this.repaint();
+	}
+	
 	
 	class MyKeyListener implements KeyListener{
 

@@ -24,6 +24,9 @@ public class WantHome extends JFrame {
 
 	private ImageIcon exitButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/PressedExitButton.png"));
 	private ImageIcon exitButtonImage = new ImageIcon(Main.class.getResource("../images/exitButton.png"));
+	
+	private ImageIcon homeButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/PressedHomeButton.png"));
+	private ImageIcon homeButtonImage = new ImageIcon(Main.class.getResource("../images/HomeButton.png"));
 
 	private ImageIcon startButtonImage = new ImageIcon(Main.class.getResource("../images/StartButton.png"));
 	private ImageIcon startButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/PressedStartButton.png"));
@@ -38,20 +41,19 @@ public class WantHome extends JFrame {
 	private ImageIcon PlayerImage1 = new ImageIcon(Main.class.getResource("../images/Player1-3.gif"));
 	private ImageIcon PlayerImage2 = new ImageIcon(Main.class.getResource("../images/Player2.gif"));
 	
-	private ImageIcon gameBackgroundImage1 = new ImageIcon(Main.class.getResource("../images/map1.png"));
-	private ImageIcon gameBackgroundImage2 = new ImageIcon(Main.class.getResource("../images/map2.png"));
+	private ImageIcon EnemyAndroidImage = new ImageIcon(Main.class.getResource("../images/Android_robot.png"));
 	
 	private JButton soundButton = new JButton(soundButtonImage);
 	private JButton houseButton = new JButton(houseButtonImage);
 	
 	private JButton exitButton = new JButton(exitButtonImage);
+	private JButton homeButton = new JButton(homeButtonImage);
 	private JButton startButton = new JButton(startButtonImage);
 	private JButton settingButton = new JButton(settingButtonImage);
 	
 	JLabel la1 ;
     JLabel la2 ;
-    JLabel GameBackground1 ;
-    JLabel GameBackground2 ;
+    JLabel EnemyAndroid;
     
     final int FLYING_UNIT=10;
     boolean SoundButtonBool = true;
@@ -81,16 +83,12 @@ public class WantHome extends JFrame {
         la2.setLocation(50,430);
         la2.setSize(100,140);
         
-        GameBackground1 = new JLabel(gameBackgroundImage1);
-        GameBackground2 = new JLabel(gameBackgroundImage2);
-        
-        GameBackground1.setLocation(0,0);
-        GameBackground1.setSize(300,12000);
-        
-        GameBackground2.setLocation(0,300);
-        GameBackground2.setSize(300,12000);
+        EnemyAndroid = new JLabel(EnemyAndroidImage);
+        EnemyAndroid.setLocation(270,130);
+        EnemyAndroid.setSize(100,140);
 		
 		Music introMusic = new Music("introMusic.mp3", true);
+		Music gameMusic = new Music("gameMusic.mp3", true);
 		introMusic.start();
 		
 		exitButton.setBounds(870, 2, 25, 25);
@@ -114,6 +112,28 @@ public class WantHome extends JFrame {
 			}
 		});
 		add(exitButton);
+		
+		homeButton.setBounds(840, 2, 25, 25);
+		homeButton.setBorderPainted(false);
+		homeButton.setContentAreaFilled(false);
+		homeButton.setFocusPainted(false);
+		homeButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				homeButton.setIcon(homeButtonEnteredImage);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				homeButton.setIcon(homeButtonImage);
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				System.exit(0);
+			}
+		});
+		add(homeButton);
 
 		startButton.setBounds(300, 300, 300, 100);
 		startButton.setBorderPainted(false);
@@ -133,7 +153,13 @@ public class WantHome extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				introMusic.close();
-				GameStart();
+				gameMusic.start();
+
+				startButton.setVisible(false);
+				settingButton.setVisible(false);
+				
+				new Game();
+				dispose();
 			}
 		});
 		add(startButton);
@@ -257,14 +283,13 @@ public class WantHome extends JFrame {
 	
 	public void GameStart() {
 		WantHome.introBackground = new ImageIcon(Main.class.getResource("../images/map.png")).getImage();
-		add(GameBackground1);
-		add(GameBackground2);
-		
+
 		startButton.setVisible(false);
 		settingButton.setVisible(false);
 		
 		add(la1);
 		add(la2);
+		add(EnemyAndroid);
 	}
 	
 	class MyKeyListener extends Thread implements KeyListener  {
@@ -289,9 +314,7 @@ public class WantHome extends JFrame {
                 	break;
                      
                 case KeyEvent.VK_RIGHT:
-                    la1.setLocation(la1.getX()+FLYING_UNIT, la1.getY());
-                    GameBackground1.setLocation(GameBackground1.getX()+FLYING_UNIT, GameBackground1.getY());
-                    System.out.println(GameBackground1.getX()+" "+GameBackground1.getY()); break;
+                    la1.setLocation(la1.getX()+FLYING_UNIT, la1.getY()); break;
                 case KeyEvent.VK_LEFT:
                     la1.setLocation(la1.getX()-FLYING_UNIT, la1.getY()); break;
                 case 87:
