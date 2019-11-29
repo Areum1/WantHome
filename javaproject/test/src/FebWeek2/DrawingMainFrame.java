@@ -1,0 +1,51 @@
+package FebWeek2;
+
+import java.awt.Container;
+
+import javax.swing.JFrame;
+import javax.swing.border.EtchedBorder;
+
+public class DrawingMainFrame extends JFrame {
+
+	public DrawingMainFrame(){
+
+		super("이미지 그리기 실습");
+
+		Container container = this.getContentPane();
+
+		container.setLayout(null);
+
+		
+
+		//////////////////////////////////////
+
+		DrawingEx dp = new DrawingEx();
+
+		dp.setBorder(new EtchedBorder());
+
+		dp.setBounds(0, 0, 800, 800);
+
+
+		container.add(dp);
+
+		/////////////////////////////////////
+
+		
+
+		this.setBounds(400,50,700,700);
+
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		this.setVisible(true);
+
+			
+
+	}
+
+	public static void main(String[] args) {
+
+		new DrawingMainFrame();
+
+	}
+
+}

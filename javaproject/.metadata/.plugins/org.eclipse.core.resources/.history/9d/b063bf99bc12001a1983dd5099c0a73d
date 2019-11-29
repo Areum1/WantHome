@@ -1,0 +1,134 @@
+package wantHome;
+
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.InputStream;
+
+import javax.imageio.ImageIO;
+import javax.swing.JPanel;
+
+
+
+public class GameStart extends JPanel {
+	BufferedImage bmap1,bmap2,bcha1,bcha2,bcha3;
+	int x,y;
+	int flag=1;
+	public GameStart(){
+		String map1 = "../images/map1.png";
+		String map2 = "../images/map2.png";
+		String cha1 = "../images/cha1_1.png";
+		String cha2 = "../images/cha1_2.png";
+		String cha3 = "../images/cha1_3.png";
+		InputStream icha1 = this.getClass().getResourceAsStream(cha1);
+		InputStream icha2 = this.getClass().getResourceAsStream(cha2);
+		InputStream icha3 = this.getClass().getResourceAsStream(cha3);
+		InputStream imap1 = this.getClass().getResourceAsStream(map1);
+		InputStream imap2 = this.getClass().getResourceAsStream(map2);
+		try{
+			bmap1 = ImageIO.read(imap1);
+			bmap2 = ImageIO.read(imap2);
+			bcha1 = ImageIO.read(icha1);
+			bcha2 = ImageIO.read(icha2);
+			bcha2 = ImageIO.read(icha3);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		new Thread(){
+			public void run(){
+				while(true){
+					try{
+						Thread.sleep(140);
+					}catch(Exception E){
+						E.printStackTrace();
+					}
+					x-=20;
+					if(x>=GameStart.this.getWidth()){
+						x=0;
+						//y+= bimg.getHeight();
+						if(y>=GameStart.this.getHeight()){
+							break;
+						}
+					}
+					repaint();
+	//궁극적으로 painComponent()가돌아감
+	//저명령을 시스템 스레드에게 함 시스템스레드는 돌리는게 아니라 그리기를 수행해야함
+				}
+			}
+		}.start();
+	}
+	@Override
+	protected void paintComponent(Graphics arg0) {
+		
+		super.paintComponent(arg0);
+		System.out.println(x);
+		Graphics2D g2d = (Graphics2D)arg0;
+		g2d.drawImage(bmap1,x,y,this);
+		g2d.drawImage(bmap2,x,y+300,this);
+		
+		switch(flag) {
+		case 0:
+			System.out.println("깃발 0");
+			g2d.drawImage(bcha1,100,y+147,this);
+			flag = 1;
+			break;
+		case 1:
+			System.out.println("깃발 1");
+			g2d.drawImage(bcha2,100,y+147,this);
+			flag = 2;
+			break;
+		case 2:
+			System.out.println("깃발 2");
+			g2d.drawImage(bcha3,100,y+147,this);
+			flag = 0;
+			break;
+		}
+				
+		System.out.println("Graphic");
+		
+	}
+	class MyKeyListener implements KeyListener{
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            int keyCode =e.getKeyCode();
+            
+            switch(keyCode){
+                case KeyEvent.VK_UP:
+                	if(la1.getY() < 40)
+                		la1.setLocation(la1.getX(), la1.getY()+FLYING_UNIT);
+                    la1.setLocation(la1.getX(), la1.getY()-FLYING_UNIT); System.out.println(la1.getX()+" "+la1.getY()); break;
+                case KeyEvent.VK_DOWN:
+                	if(la1.getY() > 210)
+                		la1.setLocation(la1.getX(), la1.getY()-FLYING_UNIT);
+                    la1.setLocation(la1.getX(), la1.getY()+FLYING_UNIT); System.out.println(la1.getX()+" "+la1.getY()); break;
+                case KeyEvent.VK_RIGHT:
+                    la1.setLocation(la1.getX()+FLYING_UNIT, la1.getY()); break;
+                case KeyEvent.VK_LEFT:
+                    la1.setLocation(la1.getX()-FLYING_UNIT, la1.getY()); break;
+                case 87:
+                	if(la2.getY() < 310)
+                		la2.setLocation(la2.getX(), la2.getY()+FLYING_UNIT);
+	                la2.setLocation(la2.getX(), la2.getY()-FLYING_UNIT); System.out.println(la2.getX()+" "+la2.getY()); break;
+	            case 83:
+	            	if(la2.getY() > 510)
+                		la2.setLocation(la2.getX(), la2.getY()-FLYING_UNIT);
+	                la2.setLocation(la2.getX(), la2.getY()+FLYING_UNIT); System.out.println(la2.getX()+" "+la2.getY()); break;
+	            case 68:
+	                la2.setLocation(la2.getX()+FLYING_UNIT, la2.getY()); break;
+	            case 65:
+	                la2.setLocation(la2.getX()-FLYING_UNIT, la2.getY()); break;
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+        }
+	}
+}

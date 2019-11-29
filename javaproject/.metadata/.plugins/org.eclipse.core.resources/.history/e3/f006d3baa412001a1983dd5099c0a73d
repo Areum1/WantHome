@@ -1,0 +1,53 @@
+package FebWeek3;
+
+public class DrawingMainFrame extends JFrame{
+
+	public DrawingMainFrame(){
+
+		super("이미지 그리기 실습");
+
+		Container container = this.getContentPane();
+
+		container.setLayout(null);
+
+		
+
+		//////////////////////////////////////
+
+		DrawingEx dp = new DrawingEx();
+
+		dp.setBorder(new EtchedBorder());
+
+		dp.setBounds(0, 0, 800, 800);
+
+    원래는 setBounds를 여기서 해주지않는다. 하지만 여러 이미지를
+
+    출력해야 하므로 크기는 여기서 지정해준다.
+
+		container.add(dp);
+
+		/////////////////////////////////////
+
+		
+
+		this.setBounds(400,50,700,700);
+
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		this.setVisible(true);
+
+			
+
+	}
+
+	public static void main(String[] args) {
+
+		new DrawingMainFrame();
+
+	}
+
+}
+
+
+
+출처: https://ddo-o.tistory.com/54 [공순이의 블로그]

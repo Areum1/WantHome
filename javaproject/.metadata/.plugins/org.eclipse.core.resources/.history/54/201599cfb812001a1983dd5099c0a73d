@@ -1,0 +1,278 @@
+package wantHome;
+
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.border.EtchedBorder;
+
+
+public class WantHome extends JFrame {
+	private Image screenImage;
+	private Graphics screenGraphic;
+
+	public static Image introBackground = new ImageIcon(Main.class.getResource("../images/mainImage.png")).getImage();
+	private JLabel menuBar = new JLabel(new ImageIcon(Main.class.getResource("../images/menuBar.png")));
+
+	private ImageIcon exitButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/PressedExitButton.png"));
+	private ImageIcon exitButtonImage = new ImageIcon(Main.class.getResource("../images/exitButton.png"));
+	
+	private ImageIcon homeButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/PressedHomeButton.png"));
+	private ImageIcon homeButtonImage = new ImageIcon(Main.class.getResource("../images/HomeButton.png"));
+
+	private ImageIcon startButtonImage = new ImageIcon(Main.class.getResource("../images/StartButton.png"));
+	private ImageIcon startButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/PressedStartButton.png"));
+	private ImageIcon settingButtonImage = new ImageIcon(Main.class.getResource("../images/SettingButton.png"));
+	private ImageIcon settingButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/PressedSettingButton.png"));	
+	
+	private ImageIcon soundButtonImage = new ImageIcon(Main.class.getResource("../images/SoundOn.png"));
+	private ImageIcon soundButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/SoundOff.png"));
+	private ImageIcon houseButtonImage = new ImageIcon(Main.class.getResource("../images/houseButton.png"));
+	private ImageIcon houseButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/Pressedhouse.png"));
+	
+	private JButton soundButton = new JButton(soundButtonImage);
+	private JButton houseButton = new JButton(houseButtonImage);
+	
+	private JButton exitButton = new JButton(exitButtonImage);
+	private JButton homeButton = new JButton(homeButtonImage);
+	private JButton startButton = new JButton(startButtonImage);
+	private JButton settingButton = new JButton(settingButtonImage);
+	
+	Container container = this.getContentPane();
+    
+    final int FLYING_UNIT=10;
+    boolean SoundButtonBool = true;
+
+	private int mouseX, mouseY;
+
+	public WantHome() {
+		setUndecorated(true);
+		setTitle("I want go home");
+		setSize(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+		setResizable(false);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
+		setBackground(new Color(0, 0, 0, 0));
+		setLayout(null);
+		setLocation(0,0);
+		
+		Music introMusic = new Music("introMusic.mp3", true);
+		Music gameMusic = new Music("gameMusic.mp3", true);
+		introMusic.start();
+		
+		GameStart gs = new GameStart();
+		container.add(gs);
+		
+		exitButton.setBounds(870, 2, 25, 25);
+		exitButton.setBorderPainted(false);
+		exitButton.setContentAreaFilled(false);
+		exitButton.setFocusPainted(false);
+		exitButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				exitButton.setIcon(exitButtonEnteredImage);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				exitButton.setIcon(exitButtonImage);
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				System.exit(0);
+			}
+		});
+		add(exitButton);
+		
+		homeButton.setBounds(840, 2, 25, 25);
+		homeButton.setBorderPainted(false);
+		homeButton.setContentAreaFilled(false);
+		homeButton.setFocusPainted(false);
+		homeButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				homeButton.setIcon(homeButtonEnteredImage);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				homeButton.setIcon(homeButtonImage);
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				System.exit(0);
+			}
+		});
+		add(homeButton);
+
+		startButton.setBounds(300, 300, 300, 100);
+		startButton.setBorderPainted(false);
+		startButton.setContentAreaFilled(false);
+		startButton.setFocusPainted(false);
+		startButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				startButton.setIcon(startButtonEnteredImage);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				startButton.setIcon(startButtonImage);
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				introMusic.close();
+				gameMusic.start();
+
+				startButton.setVisible(false);
+				settingButton.setVisible(false);
+				
+				
+//				new Game();
+//				dispose();
+			}
+		});
+		add(startButton);
+
+		settingButton.setBounds(300, 420, 300, 100);
+		settingButton.setBorderPainted(false);
+		settingButton.setContentAreaFilled(false);
+		settingButton.setFocusPainted(false);
+		settingButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				settingButton.setIcon(settingButtonEnteredImage);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				settingButton.setIcon(settingButtonImage);
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				startButton.setVisible(false);
+				settingButton.setVisible(false);
+				soundButton.setBounds(100, 415, 150, 70);
+				soundButton.setBorderPainted(false);
+				soundButton.setContentAreaFilled(false);
+				soundButton.setFocusPainted(false);
+				soundButton.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+					}
+
+					@Override
+					public void mouseExited(MouseEvent e) {
+					}
+
+					@Override
+					public void mousePressed(MouseEvent e) {
+						if(SoundButtonBool) {
+							SoundButtonBool=false;
+							introMusic.close();
+							soundButton.setIcon(soundButtonEnteredImage);
+							System.out.println("버튼 누르기");
+							
+						}
+						else if(!(SoundButtonBool)) { 
+							SoundButtonBool = true;
+							// 음악 다시 시작해주는 코드
+							soundButton.setIcon(soundButtonImage);
+							System.out.println("버튼 안 누르기");
+						}
+					}
+				});
+				add(soundButton);
+				
+				houseButton.setBounds(640, 390, 200, 200);
+				houseButton.setBorderPainted(false);
+				houseButton.setContentAreaFilled(false);
+				houseButton.setFocusPainted(false);
+				houseButton.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						houseButton.setIcon(houseButtonEnteredImage);
+					}
+
+					@Override
+					public void mouseExited(MouseEvent e) {
+						houseButton.setIcon(houseButtonImage);
+					}
+
+					@Override
+					public void mousePressed(MouseEvent e) {
+						GameStart();
+						introMusic.close();
+						soundButton.setVisible(false);
+						houseButton.setVisible(false);
+						
+					}
+				});
+				add(houseButton);
+				
+				introBackground = new ImageIcon(Main.class.getResource("../images/SettingBackground.png")).getImage();
+			}
+		});
+		add(settingButton);
+
+		menuBar.setBounds(0, 0, 900, 30);
+		menuBar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				mouseX = e.getX();
+				mouseY = e.getY();
+			}
+		});
+		menuBar.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int x = e.getXOnScreen();
+				int y = e.getYOnScreen();
+				setLocation(x - mouseX, y - mouseY);
+			}
+		});
+
+		add(menuBar);
+
+		
+	}
+
+	public void paint(Graphics g) {
+		screenImage = createImage(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+		screenGraphic = screenImage.getGraphics();
+		screenDraw(screenGraphic);
+		g.drawImage(screenImage, 0, 0, null);
+	}
+
+	public void screenDraw(Graphics g) {
+		g.drawImage(introBackground, 0, 0, null);
+		paintComponents(g);
+		this.repaint();
+	}
+	
+	public void GameStart() {
+		
+		//WantHome.introBackground = new ImageIcon(Main.class.getResource("../images/map.png")).getImage();
+		System.out.println("가나다라");		
+
+		startButton.setVisible(false);
+		settingButton.setVisible(false);
+		
+	}
+}
+	

@@ -1,0 +1,54 @@
+package wantHome;
+
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
+
+public class Background extends Thread{
+	private Image BackgroundImage = new ImageIcon(Main.class.getResource("../images/map.png")).getImage();
+	private int x, y;
+	
+	public Background(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	
+	public void screenDraw(Graphics2D g) {
+		g.drawImage(BackgroundImage, x,y,null);
+		paintComponents(g);
+		this.repaint();
+	}
+	
+	@Override
+	protected void paintComponent(Graphics arg0) {
+		
+		//super.paintComponent(arg0);
+		Graphics2D g2d = (Graphics2D)arg0;
+		g2d.drawImage(bimg, x , y, this);
+		System.out.println("Graphic");
+		
+	}
+
+
+출처: https://ddo-o.tistory.com/54 [공순이의 블로그]
+	
+	public void move() {
+		x += Main.BACK_SPEED;
+	}
+	
+	@Override
+	public void run() {
+		try {
+			while(true) {
+				System.out.println("와일");
+				move();
+				screenDraw(BackgroundImage);
+				Thread.sleep(Main.SLEEP_TIME);
+			}
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+	}
+}

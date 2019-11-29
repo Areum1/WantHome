@@ -1,0 +1,114 @@
+package test;
+
+import java.awt.*;
+
+public class ShowAnimation extends Panel implements Runnable {
+
+Image image;
+Thread thread;
+int x; // 그릴 이미지 x좌표
+int y; // 그릴 이미지 y좌표
+private Image offImage; // 더블 버퍼링을 위해 사용할 이미지
+private Graphics offScreen;// 더블 버퍼링을 위한 이미지를 그릴 객체
+private boolean flag; // 더블 버퍼링을 위해
+
+public ShowAnimation() {
+
+image = Toolkit.getDefaultToolkit().getImage("../images/cat1.png) x = 0;
+y = 0;
+start();
+}
+
+public void start() {
+
+if (thread == null) {
+
+thread = new Thread(this);
+thread.start();
+
+}
+
+isRun = true;
+x = 0;
+y = 0;
+
+}
+
+public void stop() {
+
+if (thread != null) {
+
+thread.stop();
+thread = null;
+
+}
+
+isRun = false;
+
+}
+
+public void paint(Graphics g) {
+if (flag == false) {
+//더블 버퍼링을 위해 오프 스크린을 생성한다.
+try {
+
+offImage = createImage(this.getSize().width, this.getSize().height);
+offScreen = offImage.getGraphics();
+
+flag = true;
+
+} catch (Exception e) {
+
+offScreen = null;
+
+}
+
+}
+
+if (offScreen != null) {
+//만일 오프 스크린이 생성 되었으면 더블 버퍼링을 실행
+drawImage(offScreen);
+g.drawImage(offImage, 0, 0, this);
+
+}
+
+else {
+
+drawImage(g);
+
+}
+
+
+}
+
+public void update(Graphics g) {
+
+paint(g);
+
+}
+
+private drawImage(Graphics g) {
+g.setColor(Color.white);
+g.fillRect(0, 0, getSize().width, getSize().height);
+g.drawImage(image, x, y);
+
+}
+
+public void run() {
+
+while (isRun) {
+
+try {
+x += 20;
+y += 10;
+repaint();
+thread.sleep(1000);
+
+} catch (InterruptedException e) {}
+if (x > getSize().width || y > getSize().height)
+stop();
+}
+}
+}
+[출처] [자바] 이미지 움직이기|작성자 바보고양이
+

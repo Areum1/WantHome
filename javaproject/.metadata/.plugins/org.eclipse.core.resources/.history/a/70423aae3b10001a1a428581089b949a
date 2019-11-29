@@ -1,0 +1,120 @@
+package wantHome;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+// 해야할 일
+// 게임화면에 창닫기 버튼 만들기
+
+public class Game extends JPanel{
+	private Image screenImage;
+	private Graphics screenGraphic;
+	
+	private ImageIcon introBackground = new ImageIcon(Main.class.getResource("../images/mainImage.png"));
+	//public static ImageIcon introBackground = new ImageIcon(Main.class.getResource("../images/mainImage.png")).getImage();
+	
+	private ImageIcon PlayerImage1 = new ImageIcon(Main.class.getResource("../images/Player1-3.gif"));
+	private ImageIcon PlayerImage2 = new ImageIcon(Main.class.getResource("../images/Player2.gif"));
+	
+	JPanel back = new JPanel();
+	JLabel la1 ;
+    JLabel la2 ;
+    
+    final int FLYING_UNIT=10;
+    
+	
+	Game() {
+		setUndecorated(true);
+		setTitle("I want go home");
+		setSize(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+		setResizable(false);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
+		setBackground(new Color(0, 0, 0, 0));
+		setLayout(null);
+		setLocation(0,0);
+		addKeyListener(new MyKeyListener());
+		
+		la1 = new JLabel(PlayerImage1);
+		la2 = new JLabel(PlayerImage2);
+		
+		la1.setLocation(50,130);
+        la1.setSize(100,140);
+        
+        la2.setLocation(50,430);
+        la2.setSize(100,140);
+        
+        add(la1);
+		add(la2);
+        
+		back = null;
+		try {
+			back = new JPanelWithBackground("../images/mainImage.png");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		//introBackground.getImage();
+		//introBackground = new ImageIcon(Main.class.getResource("../images/map.png")).getImage();		
+    }	
+	
+	
+	
+	public void paint(Graphics g) {
+		screenImage = createImage(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+		screenGraphic = screenImage.getGraphics();
+		screenDraw(screenGraphic);
+		g.drawImage(screenImage, 0, 0, null);
+	}`																	
+	
+	class MyKeyListener implements KeyListener{
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+        }
+
+        @Override
+      public void keyPressed(KeyEvent e) {
+          int keyCode =e.getKeyCode();
+          
+          switch(keyCode){
+              case KeyEvent.VK_UP:
+              	if(la1.getY() < 40)
+              		la1.setLocation(la1.getX(), la1.getY()+FLYING_UNIT);
+              	for (int i = 0; i<10;i++) {
+              		la1.setLocation(la1.getX(), la1.getY()-i);
+              		la1.setLocation(la1.getX()+i, la1.getY());
+              		la1.setLocation(la1.getX(), la1.getY()+i);
+              	}
+              	System.out.println(la1.getX()+" "+la1.getY());
+              	break;
+              case 87:
+              	if(la2.getY() < 310)
+              		la2.setLocation(la2.getX(), la2.getY()+FLYING_UNIT);
+              	for (int i = 0; i<10;i++) {
+              		la2.setLocation(la2.getX(), la2.getY()-i);
+              		la2.setLocation(la2.getX()+i, la2.getY());
+              		la2.setLocation(la2.getX(), la2.getY()+i);
+              	}
+                   System.out.println(la2.getX()+" "+la2.getY());
+	                 break;
+          }
+      }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+        }
+	}
+}

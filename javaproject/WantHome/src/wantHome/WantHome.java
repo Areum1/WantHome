@@ -158,8 +158,7 @@ public class WantHome extends JFrame {
 				startButton.setVisible(false);
 				settingButton.setVisible(false);
 				
-				new Game();
-				dispose();
+				GameStart();
 			}
 		});
 		add(startButton);
@@ -313,10 +312,6 @@ public class WantHome extends JFrame {
                 	System.out.println(la1.getX()+" "+la1.getY());
                 	break;
                      
-                case KeyEvent.VK_RIGHT:
-                    la1.setLocation(la1.getX()+FLYING_UNIT, la1.getY()); break;
-                case KeyEvent.VK_LEFT:
-                    la1.setLocation(la1.getX()-FLYING_UNIT, la1.getY()); break;
                 case 87:
                 	if(la2.getY() < 310)
                 		la2.setLocation(la2.getX(), la2.getY()+FLYING_UNIT);
@@ -327,14 +322,6 @@ public class WantHome extends JFrame {
                 	}
                      System.out.println(la2.getX()+" "+la2.getY());
 	                 break;
-	            case 83:
-	            	if(la2.getY() > 510)
-                		la2.setLocation(la2.getX(), la2.getY()-FLYING_UNIT);
-	                la2.setLocation(la2.getX(), la2.getY()+FLYING_UNIT); System.out.println(la2.getX()+" "+la2.getY()); break;
-	            case 68:
-	                la2.setLocation(la2.getX()+FLYING_UNIT, la2.getY()); break;
-	            case 65:
-	                la2.setLocation(la2.getX()-FLYING_UNIT, la2.getY()); break;
             }
         }
 

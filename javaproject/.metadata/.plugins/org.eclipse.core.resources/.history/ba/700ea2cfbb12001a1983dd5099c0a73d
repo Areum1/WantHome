@@ -1,0 +1,90 @@
+package wantHome;
+
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.InputStream;
+
+import javax.imageio.ImageIO;
+import javax.swing.JPanel;
+
+
+
+public class GameStart extends JPanel {
+	BufferedImage bmap1,bmap2,bcha1,bcha2,bcha3;
+	int x,y;
+	int flag=1;
+	public GameStart(){
+		String map1 = "../images/map1.png";
+		String map2 = "../images/map2.png";
+		String cha1 = "../images/cha1_1.png";
+		String cha2 = "../images/cha1_2.png";
+		String cha3 = "../images/cha1_3.png";
+		InputStream icha1 = this.getClass().getResourceAsStream(cha1);
+		InputStream icha2 = this.getClass().getResourceAsStream(cha2);
+		InputStream icha3 = this.getClass().getResourceAsStream(cha3);
+		InputStream imap1 = this.getClass().getResourceAsStream(map1);
+		InputStream imap2 = this.getClass().getResourceAsStream(map2);
+		try{
+			bmap1 = ImageIO.read(imap1);
+			bmap2 = ImageIO.read(imap2);
+			bcha1 = ImageIO.read(icha1);
+			bcha2 = ImageIO.read(icha2);
+			bcha2 = ImageIO.read(icha3);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		new Thread(){
+			public void run(){
+				while(true){
+					try{
+						Thread.sleep(140);
+					}catch(Exception E){
+						E.printStackTrace();
+					}
+					x1-=20;
+					if(x>=GameStart.this.getWidth()){
+						x=0;
+						//y+= bimg.getHeight();
+						if(y>=GameStart.this.getHeight()){
+							break;
+						}
+					}
+					repaint();
+	//궁극적으로 painComponent()가돌아감
+	//저명령을 시스템 스레드에게 함 시스템스레드는 돌리는게 아니라 그리기를 수행해야함
+				}
+			}
+		}.start();
+	}
+	@Override
+	protected void paintComponent(Graphics arg0) {
+		
+		super.paintComponent(arg0);
+		System.out.println(x);
+		Graphics2D g2d = (Graphics2D)arg0;
+		g2d.drawImage(bimg3,x1,y,this);
+		
+		switch(flag) {
+		case 0:
+			System.out.println("깃발 0");
+			g2d.drawImage(bimg,x+70,y+147,this);
+			flag = 1;
+			break;
+		case 1:
+			System.out.println("깃발 1");
+			g2d.drawImage(bimg1,x+70,y+147,this);
+			flag = 2;
+			break;
+		case 2:
+			System.out.println("깃발 2");
+			g2d.drawImage(bimg2,x+70,y+147,this);
+			flag = 0;
+			break;
+		}
+				
+		System.out.println("Graphic");
+		
+	}
+	//public paintComponents가
+}
