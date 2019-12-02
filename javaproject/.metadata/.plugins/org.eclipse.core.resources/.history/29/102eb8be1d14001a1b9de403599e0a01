@@ -1,0 +1,48 @@
+package wantHome;
+
+import java.awt.event.KeyEvent;
+
+import javax.swing.JPanel;
+
+public class ChaJump  extends JPanel {
+	@Override
+	public void keyTyped(KeyEvent e) {}
+	@Override
+	public void keyReleased(KeyEvent e) {}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		int keyCode = e.getKeyCode();
+		switch(keyCode) {
+		case KeyEvent.VK_UP:
+			new Thread() {	
+				public void run() {
+					while(true) {
+						try {
+							Thread.sleep(150);
+						} catch (Exception e2) {
+							e2.printStackTrace();
+						}
+						y1+=20;
+						if(x>=GameStart.this.getWidth()){
+							x=0;
+							//y+= bimg.getHeight();
+							if(y>=GameStart.this.getHeight()){
+								break;
+							}
+						}
+						repaint();
+						
+					}
+				}
+			}.start();
+			break;
+		
+		case 87:
+			System.out.println("아래 캐릭터 점프");
+			break;
+		}
+		
+		System.out.println(e);
+	}
+}

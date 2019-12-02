@@ -1,0 +1,27 @@
+package wantHome;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import javax.swing.JPanel;
+
+public class ChaJump implements KeyListener {
+	@Override
+	public void keyTyped(KeyEvent e) {}
+	@Override
+	public void keyReleased(KeyEvent e) {}
+	
+	@Override
+	public int keyPressed(KeyEvent e) {
+		int keyCode = e.getKeyCode();
+		switch(keyCode) {
+		case KeyEvent.VK_UP:
+			return 10;
+			break;
+		case 87:
+			return 20;
+		}
+		return 0;
+		System.out.println(e);
+	}
+}
