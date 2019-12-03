@@ -6,8 +6,13 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="setLay"/>
+		<item key="selection" value="print"/>
 		<list key="findhistory">
+			<item value="print"/>
+			<item value="냥"/>
+			<item value="GameS"/>
+			<item value="spiderBound"/>
+			<item value="detect"/>
 			<item value="setLay"/>
 			<item value="setBounds"/>
 		</list>
@@ -15,8 +20,8 @@
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="438"/>
-		<item key="DIALOG_Y_ORIGIN" value="217"/>
+		<item key="DIALOG_X_ORIGIN" value="1270"/>
+		<item key="DIALOG_Y_ORIGIN" value="219"/>
 		<item key="DIALOG_WIDTH" value="340"/>
 		<item key="DIALOG_HEIGHT" value="454"/>
 		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>

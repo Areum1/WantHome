@@ -1,0 +1,58 @@
+package wantHome;
+
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.border.EtchedBorder;
+
+import wantHome.GameStart.TestPane;
+
+public class GameMain extends JFrame {
+	
+	public GameMain() {
+
+//		Container container = this.getContentPane();
+//		container.setLayout(null);
+//
+//		//////////////////////////////////////
+//
+//		GameStart gs = new GameStart();
+//		//gs.setBorder(new EtchedBorder());
+//		gs.setBounds(0, 0, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+//		container.add(gs);
+//		
+//		gs.setFocusable(true);
+//		
+//		
+//		/////////////////////////////////////
+//
+//		this.setBounds(0,0,Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT+35);
+//		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		this.setVisible(true);
+		
+		EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+                }
+
+                JFrame frame = new JFrame("Testing");
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setLayout(new BorderLayout());
+                frame.add(new TestPane());
+                frame.pack();
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
+            }
+        });
+
+	}
+
+	
+}

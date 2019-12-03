@@ -13,16 +13,12 @@ import java.awt.event.ActionListener;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.InputStream;
-
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-
-import wantHome.GameStart;
 
 public class TransparentImageCollision {
 
@@ -52,13 +48,8 @@ public class TransparentImageCollision {
 
     public class TestPane extends JPanel {
 
-    	BufferedImage bmap1,bmap2,bcha1,bcha2,bcha3,bcha4,bcha5,bcha6,benemy1;
-    	
-    	public int x,y;
-    	
         private BufferedImage fly;
         private BufferedImage spider;
-        private BufferedImage kong;
 
         private Rectangle spiderBounds;
         private Rectangle flyBounds;
@@ -67,21 +58,16 @@ public class TransparentImageCollision {
         private Point flyDelta;
 
         private Rectangle collision;
-        
-        int x1,x2=400;
-        
-        String map1 = "../images/map1.png";
-		String map2 = "../images/map2.png";
-		InputStream imap1 = this.getClass().getResourceAsStream(map1);
-		InputStream imap2 = this.getClass().getResourceAsStream(map2);
 
+        private BufferedImage map1;
+        
+        public int x,y;
+        
         public TestPane() {
             try {
                 fly = ImageIO.read(getClass().getResource("../images/Android1.png"));
                 spider = ImageIO.read(getClass().getResource("../images/cha1_1.png"));
-                kong = ImageIO.read(getClass().getResource("../images/cha2_1.png"));
-                bmap1 = ImageIO.read(imap1);
-    			bmap2 = ImageIO.read(imap2);
+                map1 = ImageIO.read(getClass().getResource("../images/map.png"));
 
                 Dimension size = getPreferredSize();
                 int width = size.width;
@@ -98,24 +84,21 @@ public class TransparentImageCollision {
                 spiderDelta = new Point(1, 0);
                 flyDelta = new Point(-1, 0);
 
+                
                 new Thread() {
                 	public void run() {
                 		while(true) {
                 			try {
-                                Thread.sleep(170);
-                                if(x>=GameStart.this.getWidth()){
-            						x=0;
-            						if(y>=GameStart.this.getHeight()){
-            							break;
-            						}
-            					}
+                				Thread.sleep(170);
+                				x-=15;
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
                 		}
                 	}
                 }.start();
-                Timer timer = new Timer(5, new ActionListener() {
+                
+                Timer timer = new Timer(10, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         update(spiderBounds, spiderDelta);
@@ -161,16 +144,13 @@ public class TransparentImageCollision {
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g.create();
 
-            g2d.drawImage(bmap1,x,y,this);
-    		g2d.drawImage(bmap2,x,y+300,this);
+            g2d.drawImage(map1,x,100,this);
             g2d.drawImage(spider, spiderBounds.x, spiderBounds.y, this);
             g2d.drawImage(fly, flyBounds.x, flyBounds.y, this);
 
             if (collision != null) {
-            	System.out.println("Ãæµ¹");
-//                g2d.setColor(new Color(255, 0, 0, 128));
-//                g2d.fill(collision);
-                g2d.drawImage(kong, flyBounds.x, flyBounds.y, this);
+                g2d.setColor(new Color(255, 0, 0, 128));
+                g2d.fill(collision);
             }
 
             g2d.dispose();
@@ -218,7 +198,7 @@ public class TransparentImageCollision {
         protected boolean collision(int x, int y) {
             boolean collision = false;
 
-            int spiderPixel = spider.getRGB(x - spiderBounds.x, y - spiderBounds.y);
+            int spiderPixel = spider.getRGB(x-spiderBounds.x, y - spiderBounds.y);
             int flyPixel = fly.getRGB(x - flyBounds.x, y - flyBounds.y);
             // 255 is completely transparent, you might consider using something
             // a little less absolute, like 225, to give you a sligtly

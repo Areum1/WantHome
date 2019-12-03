@@ -1,0 +1,17 @@
+package wantHome;
+
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
+
+public class Fail {
+	
+	public static Image introBackground = new ImageIcon(Main.class.getResource("../images/FailBackground.png")).getImage();
+	
+	private ImageIcon exitButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/PressedExitButton.png"));
+	private ImageIcon exitButtonImage = new ImageIcon(Main.class.getResource("../images/exitButton.png"));
+	
+	Fail(){
+		
+	}
+}

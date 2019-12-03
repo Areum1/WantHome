@@ -1,0 +1,14 @@
+package wantHome;
+
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
+
+public class Fail {
+	
+	public static Image introBackground = new ImageIcon(Main.class.getResource("../images/FailBackground.png")).getImage();
+	
+	Fail(){
+		
+	}
+}

@@ -1,0 +1,63 @@
+package wantHome;
+
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
+public class Fail extends JFrame {
+	
+	private Image screenImage;
+	private Graphics screenGraphic;
+	
+	public static Image introBackground = new ImageIcon(Main.class.getResource("../images/FailBackground.png")).getImage();
+	
+	private ImageIcon stopButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/StopButtonPressed.png"));
+	private ImageIcon stopButtonImage = new ImageIcon(Main.class.getResource("../images/StopButton.png"));
+	
+	private ImageIcon againButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/AgainButtonPressed.png"));
+	private ImageIcon againButtonImage = new ImageIcon(Main.class.getResource("../images/AgainButton.png"));
+	
+	private JButton exitButton = new JButton(stopButtonImage);
+	private JButton homeButton = new JButton(againButtonImage);
+	
+	Fail(){
+		exitButton.setBounds(870, 2, 25, 25);
+		exitButton.setBorderPainted(false);
+		exitButton.setContentAreaFilled(false);
+		exitButton.setFocusPainted(false);
+		exitButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				exitButton.setIcon(stopButtonEnteredImage);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				exitButton.setIcon(stopButtonImage);
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				System.exit(0);
+			}
+		});
+		add(exitButton);
+	}
+	public void paint(Graphics g) {
+		screenImage = createImage(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+		screenGraphic = screenImage.getGraphics();
+		screenDraw(screenGraphic);
+		g.drawImage(screenImage, 0, 0, null);
+	}
+
+	public void screenDraw(Graphics g) {
+		g.drawImage(introBackground, 0, 0, null);
+		paintComponents(g);
+		this.repaint();
+	}
+}

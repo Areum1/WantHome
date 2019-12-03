@@ -1,0 +1,58 @@
+//package wantHome;
+//
+//import javax.swing.ImageIcon;
+//import javax.swing.JFrame;
+//import javax.swing.JLabel;
+//import javax.swing.JPanel;
+//
+//public class Success extends JFrame {
+//	Success(int score){
+//		ImageIcon icon = new ImageIcon("C:/myeclipsework/KFSI_ADDB/WebRoot/images/loading.gif");
+//	    // 주의, 여기서 setDefaultCloseOperation() 정의를 하지 말아야 한다
+//	    // 정의하게 되면 새 창을 닫으면 모든 창과 프로그램이 동시에 꺼진다
+//	    
+//	    JPanel NewWindowContainer = new JPanel();
+//	    setContentPane(NewWindowContainer);
+//	    
+//	    JLabel NewLabel = new JLabel("성공!");
+//	    
+//	    NewWindowContainer.add(NewLabel);
+//	    
+//	    setSize(Main.SCREEN_WIDTH,Main.SCREEN_HEIGHT);
+//	    setResizable(false);
+//	    setVisible(true);
+//	}
+//}
+
+package wantHome;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.event.*;
+
+class Success extends JFrame{
+    ImageIcon i = new ImageIcon("../images/map1.png");
+    JLabel NewLabel = new JLabel("성공!");
+    Image im=i.getImage();
+    Success(){
+        this.setTitle("이미지 그리기 연습");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        MyPanel panel = new MyPanel();
+        panel.setLayout(new FlowLayout());
+        panel.add(new JButton("Hello"));
+        
+        
+        this.add(panel);
+        this.setSize(Main.SCREEN_WIDTH,Main.SCREEN_HEIGHT);
+        this.setVisible(true);
+    }
+    class MyPanel extends JPanel{
+            
+        public void paintComponent(Graphics g){
+            super.paintComponent(g);
+            g.drawImage(im,0,0,getWidth(),getHeight(),this);
+        }
+    }
+}
