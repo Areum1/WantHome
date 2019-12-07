@@ -38,8 +38,10 @@ public class GameStart extends JPanel {
 	public static int score2 = 0;
 	public static int finish = 0;
 	public GameStart(){
+		// 게임 음악 켜기
 		gameMusic.start();
 		
+		// 사용하려는 이미지들을 String안에 넣기
 		String map1 = "../images/map1.png";
 		String map2 = "../images/map2.png";
 		String cha1 = "../images/cha1_1.png";
@@ -55,6 +57,7 @@ public class GameStart extends JPanel {
 		String sit1 = "../images/cha1_sit.png";
 		String sit2 = "../images/cha2_sit.png";
 		
+		// inputStream안에 넣기
 		InputStream icha1 = this.getClass().getResourceAsStream(cha1);
 		InputStream icha2 = this.getClass().getResourceAsStream(cha2);
 		InputStream icha3 = this.getClass().getResourceAsStream(cha3);
@@ -95,6 +98,8 @@ public class GameStart extends JPanel {
 			public void run(){
 				while(running){
 					try{
+						
+						// 캐릭터 앞까지 오면 새로운 위치에 이미지를 띄울 수 있도록 랜덤을 이용하여 위치를 조정한다
 						Thread.sleep(170);
 						if(intRandom1 < 280) {
 							intRandom1 = (int)(randomValue * 200)+800;
@@ -104,7 +109,7 @@ public class GameStart extends JPanel {
 							intRandom2 = (int)(randomValue * 250)+800;
 							menu1 = (int)(Math.random()*2);
 						}
-						if(intRandom3 < 280) {
+						if(intRandom3 < 280 ) {
 							intRandom3 = (int)(randomValue * 250)+800;
 							menu2 = (int)(Math.random()*2);
 						}
@@ -117,21 +122,27 @@ public class GameStart extends JPanel {
 					}catch(Exception E){
 						E.printStackTrace();
 					}
-					x-=15;
-					street -=25;
-					intRandom1 -= 30;
+					x-=15; // 뒤의 배경이미지가 생동감을 살려주기 위해 15씩 움직인다
+					street -=25; // 게임에 시간이 얼만큼 남았는지 알려주기 위해 25씩 작아진다(게임 왼쪽 위에 올라가는 남은 거리의 변수이다)
+					
+					// 실버코인과 브론즈 코인을 움직이기 위해 30씩 움직인다
+					// 캐릭터 앞까지 다가오면 위의 코드가 작용하여 다시 랜덤하게 나온다
+					intRandom1 -= 30; 
 					intRandom2 -= 30;
 					intRandom3 -= 30;
 					intRandom4 -= 30;
-					addKeyListener(new ChaJump());
-								
+					addKeyListener(new ChaJump()); // 방향키와 w,s 키를 입력받기 위해 만들었다
+					
+					// addKeyListener에서 위 화살표가 눌리고 y1의 크기가 130이 넘을 경우에 점프하는 것처럼 30을 뺀다
 					if(ChaJump.flag1 == 1 && y1 > 130) {
 						y1 -= 30;
 					}
+					// 147을 지정하면 위 화살표를 두 번 눌러도 점프가 한 번된다 10씩 더해주는 건 점프하고 중력이 작용하는 것처럼 보인다
 					if(y1 != 147) {
 						y1 +=10;
 						ChaJump.flag1 = 0;
 					}
+					// 위와 원리 동일
 					if(ChaJump.flag2 == 1 && y2 > 435) {
 						y2 -= 30;
 					}
@@ -145,11 +156,14 @@ public class GameStart extends JPanel {
 							break;
 						}
 					}
+					// 성공과 실패를 나누는 곳
+					// 만약 거리가 다 지날 때까지 70점을 넘지 않는다면 실패창이 뜨게 한다
 					if(street <=0) {
 						running = false;
 						gameMusic.close();
 						new Fail();
 					}
+					// 거리를 지나기 전에 70점을 도달한 사람이 있다면 성공창을 뜨게 한다
 					if(score1 >= 70 || score2 >=70) {
 						running = false;
 						gameMusic.close();
@@ -172,9 +186,11 @@ public class GameStart extends JPanel {
 		
 		super.paintComponent(arg0);
 		Graphics2D g2d = (Graphics2D)arg0;
+		// 뒷 배경 지나가게 한다
 		g2d.drawImage(bmap1,x,y,this);
 		g2d.drawImage(bmap2,x,y+300,this);
 		
+		// 실버코인과 브론즈 코인이 움직이는 코드 만약 제대로 키보드를 누르면 -100으로 가서 새롭게 랜덤을 돌린다
 		switch(menu1) {
 		case 0:
 			g2d.drawImage(benemy1, intRandom1-40,184,this);
@@ -182,7 +198,7 @@ public class GameStart extends JPanel {
 				System.out.println("score1 ="+score1);
 				intRandom1 = -100;
 				ChaJump.answer1 = 0;
-				score1 +=1;
+				score1 +=1; // 브론즈 코인은 1점
 			}
 			break;
 		case 1:
@@ -191,7 +207,7 @@ public class GameStart extends JPanel {
 				System.out.println("score1 ="+score1);
 				intRandom2 = -100;
 				ChaJump.answer1 = 0;
-				score1 +=3;
+				score1 +=3; // 실버 코인은 3점
 			}
 			break;
 		}		
@@ -216,10 +232,13 @@ public class GameStart extends JPanel {
 			break;
 		}//switch menu2
 		
+		// 앉는다는 신호가 ChaJump에서 오면 그림을 바꾸고 다시 일어나게 한다
 		if(ChaJump.sit1 == 1) {
 			g2d.drawImage(bsit1,x1,y1+20,this);
 			ChaJump.sit1 =0;
 		}//sit2 if
+		 
+		// 캐릭터가 움직이도록 보이기 위해 3개의 비슷한 이미지를 돌려가며 현실감을 높인다
 		else {
 			switch(flag) {
 			case 0:

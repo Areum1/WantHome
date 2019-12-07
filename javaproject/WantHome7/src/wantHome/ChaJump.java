@@ -20,8 +20,7 @@ public class ChaJump implements KeyListener {
 		int keyCode = e.getKeyCode();
 		switch(keyCode) {
 		case KeyEvent.VK_UP:
-//			System.out.println("답 1인데 왜 안나옴");
-			flag1 = 1;
+			flag1 = 1; 
 			answer1 = 1;
 			break;
 		case KeyEvent.VK_DOWN:

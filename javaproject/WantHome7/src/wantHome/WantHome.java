@@ -227,7 +227,7 @@ public class WantHome extends JFrame {
 				});
 				add(houseButton);
 				
-				introBackground = new ImageIcon(Main.class.getResource("../images/SettingBackground.png")).getImage();
+				introBackground = new ImageIcon(Main.class.getResource("../images/SetBackground.png")).getImage();
 			}
 		});
 		add(settingButton);
