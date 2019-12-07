@@ -1,29 +1,3 @@
-//package wantHome;
-//
-//import javax.swing.ImageIcon;
-//import javax.swing.JFrame;
-//import javax.swing.JLabel;
-//import javax.swing.JPanel;
-//
-//public class Success extends JFrame {
-//	Success(int score){
-//		ImageIcon icon = new ImageIcon("C:/myeclipsework/KFSI_ADDB/WebRoot/images/loading.gif");
-//	    // 주의, 여기서 setDefaultCloseOperation() 정의를 하지 말아야 한다
-//	    // 정의하게 되면 새 창을 닫으면 모든 창과 프로그램이 동시에 꺼진다
-//	    
-//	    JPanel NewWindowContainer = new JPanel();
-//	    setContentPane(NewWindowContainer);
-//	    
-//	    JLabel NewLabel = new JLabel("성공!");
-//	    
-//	    NewWindowContainer.add(NewLabel);
-//	    
-//	    setSize(Main.SCREEN_WIDTH,Main.SCREEN_HEIGHT);
-//	    setResizable(false);
-//	    setVisible(true);
-//	}
-//}
-
 package wantHome;
 
 import java.awt.*;
@@ -43,20 +17,58 @@ class Success extends JFrame{
 	
 	private JButton againButton = new JButton(againButtonImage);
 	
-	private ImageIcon BackgroundImage = new ImageIcon(Main.class.getResource("../images/SuccessBackground.png"));
+	private ImageIcon BackgroundImage;
+	private ImageIcon BackgroundImage1 = new ImageIcon(Main.class.getResource("../images/SuccessBackground1.png"));
+	private ImageIcon BackgroundImage2 = new ImageIcon(Main.class.getResource("../images/SuccessBackground2.png"));
+	private ImageIcon BackgroundImage3 = new ImageIcon(Main.class.getResource("../images/DrawBackground.png"));
 	
-	private JButton backButton = new JButton(BackgroundImage);
+	private JButton backButton;
 	
     ImageIcon i = new ImageIcon("../images/map1.png");
     Image im=i.getImage();
-    Success(){
-        this.setTitle("성공");
+    Success(int num1, int num2){
+    	if(num1 > num2) {
+    		this.setTitle("player1 성공");
+    		BackgroundImage = BackgroundImage1;
+    		backButton = new JButton(BackgroundImage);
+    	}
+    	else if(num1 == num2) {
+    		this.setTitle("동점");
+    		BackgroundImage = BackgroundImage3;
+    		backButton = new JButton(BackgroundImage);
+    	}
+    	else if(num1 < num2) {
+    		this.setTitle("player2 성공");
+    		BackgroundImage = BackgroundImage2;
+    		backButton = new JButton(BackgroundImage);
+    	}
+        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         MyPanel panel = new MyPanel();
         panel.setLayout(new FlowLayout());
         
-        
+        backButton.setBounds(0, 0, 0, 0);
+        backButton.setBorderPainted(false);
+        backButton.setContentAreaFilled(false);
+        backButton.setFocusPainted(false);
+        backButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				backButton.setIcon(BackgroundImage);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				backButton.setIcon(BackgroundImage);
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				System.exit(0);
+			}
+		});        
+        panel.add(backButton);
         
         stopButton.setBounds(840, 2, 60, 25);
         stopButton.setBorderPainted(false);
@@ -99,32 +111,13 @@ class Success extends JFrame{
 			public void mousePressed(MouseEvent e) {
 				dispose();
 				new WantHome();
+				GameStart.score1 = 0;
+				GameStart.score2 = 0;
+				GameStart.street = 7000;
 			}
 		});        
         panel.add(againButton);
-        
-        backButton.setBounds(0, 0, 0, 0);
-        backButton.setBorderPainted(false);
-        backButton.setContentAreaFilled(false);
-        backButton.setFocusPainted(false);
-        backButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				backButton.setIcon(BackgroundImage);
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				backButton.setIcon(BackgroundImage);
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				System.exit(0);
-			}
-		});        
-        panel.add(backButton);
-        
+                
         this.add(panel);
         this.setSize(Main.SCREEN_WIDTH,Main.SCREEN_HEIGHT);
         this.setVisible(true);

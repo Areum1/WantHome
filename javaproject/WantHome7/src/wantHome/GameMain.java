@@ -14,18 +14,9 @@ public class GameMain extends JFrame {
 		Container container = this.getContentPane();
 		container.setLayout(null);
 
-		//////////////////////////////////////
-//		JLabel label = new JLabel();
-//		label.setText("남은 거리 : "+GameStart.street);
 		GameStart gs = new GameStart();
 		
-		
-		//gs.setBorder(new EtchedBorder());
-		
 		gs.setBounds(0, 0, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
-//		label.setVerticalAlignment(SwingConstants.BOTTOM);
-//		label.setHorizontalAlignment(SwingConstants.RIGHT);
-//		container.add(label);
 		container.add(gs);
 		
 		
@@ -34,7 +25,5 @@ public class GameMain extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 
-	}
-
-	
+	}	
 }

@@ -23,11 +23,33 @@ class Fail extends JFrame{
     ImageIcon i = new ImageIcon("../images/map1.png");
     Image im=i.getImage();
     Fail(){
-        this.setTitle("성공");
+        this.setTitle("실패");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         MyPanel panel = new MyPanel();
         panel.setLayout(new FlowLayout());
+        
+        backButton.setBounds(0, 0, 0, 0);
+        backButton.setBorderPainted(false);
+        backButton.setContentAreaFilled(false);
+        backButton.setFocusPainted(false);
+        backButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				backButton.setIcon(BackgroundImage);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				backButton.setIcon(BackgroundImage);
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				System.exit(0);
+			}
+		});        
+        panel.add(backButton);
         
         stopButton.setBounds(840, 2, 60, 25);
         stopButton.setBorderPainted(false);
@@ -70,32 +92,13 @@ class Fail extends JFrame{
 			public void mousePressed(MouseEvent e) {
 				dispose();
 				new WantHome();
+				GameStart.score1 = 0;
+				GameStart.score2 = 0;
+				GameStart.street = 7000;
 			}
 		});        
         panel.add(againButton);
-        
-        backButton.setBounds(0, 0, 0, 0);
-        backButton.setBorderPainted(false);
-        backButton.setContentAreaFilled(false);
-        backButton.setFocusPainted(false);
-        backButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				backButton.setIcon(BackgroundImage);
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				backButton.setIcon(BackgroundImage);
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				System.exit(0);
-			}
-		});        
-        panel.add(backButton);
-        
+          
         this.add(panel);
         this.setSize(Main.SCREEN_WIDTH,Main.SCREEN_HEIGHT);
         this.setVisible(true);

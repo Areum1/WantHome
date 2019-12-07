@@ -134,7 +134,7 @@ public class WantHome extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				introMusic.close();
-				gameMusic.start();
+				//gameMusic.start();
 
 				startButton.setVisible(false);
 				settingButton.setVisible(false);
@@ -167,7 +167,7 @@ public class WantHome extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				startButton.setVisible(false);
 				settingButton.setVisible(false);
-				soundButton.setBounds(100, 415, 150, 70);
+				soundButton.setBounds(170, 450, 150, 70);
 				soundButton.setBorderPainted(false);
 				soundButton.setContentAreaFilled(false);
 				soundButton.setFocusPainted(false);
@@ -199,7 +199,7 @@ public class WantHome extends JFrame {
 				});
 				add(soundButton);
 				
-				houseButton.setBounds(640, 390, 200, 200);
+				houseButton.setBounds(560, 390, 200, 200);
 				houseButton.setBorderPainted(false);
 				houseButton.setContentAreaFilled(false);
 				houseButton.setFocusPainted(false);

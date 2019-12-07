@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 
 
 public class GameStart extends JPanel {
+	boolean running = true;
 	double randomValue = Math.random();
 	int intRandom1 = (int)(randomValue * 500)+600;
 	int intRandom2 = (int)(randomValue * 500)+700;
@@ -20,7 +21,9 @@ public class GameStart extends JPanel {
 	int menu1 = (int)(Math.random()*3);
 	int menu2 = (int)(Math.random()*3);
 	
-	public static int street = 6000;
+	public static int street = 7000;
+	
+	Music gameMusic = new Music("gameMusic.mp3", true);
 	
 	BufferedImage bmap1,bmap2,bcha1,bcha2,bcha3,bcha4,bcha5,bcha6,benemy1,benemy2,benemy3,benemy4;
 	BufferedImage bsit1, bsit2;
@@ -31,10 +34,12 @@ public class GameStart extends JPanel {
 	int flag=1;
 	int eflag = 1;
 	
-	int score1 = 0;
-	int score2 = 0;
+	public static int score1 = 0;
+	public static int score2 = 0;
 	public static int finish = 0;
 	public GameStart(){
+		gameMusic.start();
+		
 		String map1 = "../images/map1.png";
 		String map2 = "../images/map2.png";
 		String cha1 = "../images/cha1_1.png";
@@ -64,6 +69,7 @@ public class GameStart extends JPanel {
 		InputStream iene4 = this.getClass().getResourceAsStream(senemy4);
 		InputStream isit1 = this.getClass().getResourceAsStream(sit1);
 		InputStream isit2 = this.getClass().getResourceAsStream(sit2);
+				
 		
 		try{
 			bmap1 = ImageIO.read(imap1);
@@ -85,24 +91,24 @@ public class GameStart extends JPanel {
 			e.printStackTrace();
 		}
 		
-		new Thread(){
+		class Thread1 extends Thread{
 			public void run(){
-				while(street>=0 || score1 >=70 || score2 >=70){
+				while(running){
 					try{
 						Thread.sleep(170);
-						if(intRandom1 < 0) {
+						if(intRandom1 < 280) {
 							intRandom1 = (int)(randomValue * 200)+800;
 							menu1 = (int)(Math.random()*2);
 						}
-						if(intRandom2 < 0) {
+						if(intRandom2 < 280) {
 							intRandom2 = (int)(randomValue * 250)+800;
 							menu1 = (int)(Math.random()*2);
 						}
-						if(intRandom3 < 0) {
+						if(intRandom3 < 280) {
 							intRandom3 = (int)(randomValue * 250)+800;
 							menu2 = (int)(Math.random()*2);
 						}
-						if(intRandom4 < 0) {
+						if(intRandom4 < 280) {
 							intRandom4 = (int)(randomValue * 200)+800;
 							menu2 = (int)(Math.random()*2);
 						}
@@ -139,17 +145,23 @@ public class GameStart extends JPanel {
 							break;
 						}
 					}
+					if(street <=0) {
+						running = false;
+						gameMusic.close();
+						new Fail();
+					}
+					if(score1 >= 70 || score2 >=70) {
+						running = false;
+						gameMusic.close();
+						new Success(score1, score2);
+					}
 					repaint();
 				}
-				if(score1 >= 70 || score2 >=70) {
-					new Success();
-				}
-				else {
-					new Fail();
-				}
+				
 			}
-		}.start();
-		
+		}
+		Thread1 th = new Thread1();
+		th.start();
 	}
 	
 	
@@ -179,7 +191,7 @@ public class GameStart extends JPanel {
 				System.out.println("score1 ="+score1);
 				intRandom2 = -100;
 				ChaJump.answer1 = 0;
-				score1 +=60;
+				score1 +=3;
 			}
 			break;
 		}		
