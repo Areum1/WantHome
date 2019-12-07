@@ -167,7 +167,7 @@ public class WantHome extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				startButton.setVisible(false);
 				settingButton.setVisible(false);
-				soundButton.setBounds(170, 450, 150, 70);
+				soundButton.setBounds(190, 420, 150, 70);
 				soundButton.setBorderPainted(false);
 				soundButton.setContentAreaFilled(false);
 				soundButton.setFocusPainted(false);
@@ -219,8 +219,8 @@ public class WantHome extends JFrame {
 						introMusic.close();
 						soundButton.setVisible(false);
 						houseButton.setVisible(false);
-						
-						new GameMain();
+						introBackground = new ImageIcon(Main.class.getResource("../images/mainImage.png")).getImage();
+						new WantHome();
 						dispose();
 						
 					}
@@ -231,7 +231,7 @@ public class WantHome extends JFrame {
 			}
 		});
 		add(settingButton);
-
+		
 		menuBar.setBounds(0, 0, 900, 30);
 		menuBar.addMouseListener(new MouseAdapter() {
 			@Override

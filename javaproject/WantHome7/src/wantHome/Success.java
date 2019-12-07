@@ -114,6 +114,7 @@ class Success extends JFrame{
 				GameStart.score1 = 0;
 				GameStart.score2 = 0;
 				GameStart.street = 7000;
+				//WantHome.introBackground = new ImageIcon(Main.class.getResource("../images/mainImage.png")).getImage();
 			}
 		});        
         panel.add(againButton);
