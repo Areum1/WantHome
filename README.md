@@ -12,4 +12,8 @@
 <div>
   <img src ="https://user-images.githubusercontent.com/48716298/72814222-07210c00-3ca8-11ea-8692-4acbf77c9342.PNG" width="350"></img>   
   <img src ="https://user-images.githubusercontent.com/48716298/72814223-07210c00-3ca8-11ea-8302-b53425d8d38e.PNG" width="350"></img>   
-</div>
+</div>   
+
+### 보완할 점
+- 결과화면 디자인이 부족하다
+- 방법 설명이 부족하다
