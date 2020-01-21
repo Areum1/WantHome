@@ -17,3 +17,11 @@
 ### 보완할 점
 - 결과화면 디자인이 부족하다
 - 방법 설명이 부족하다
+
+### 참고한 사이트
+[메인화면과 설정화면　(동빈나 리듬게임 강의 1강 ~ 5강)](https://www.youtube.com/watch?v=xs92kqU2YWg&list=PLRx0vPvlEmdDySO3wDqMYGKMVH4Qa4QhR)   
+[쓰레드1](https://ddo-o.tistory.com/55)    
+[쓰레드2](http://www.omnibuscode.com/board/board_java/37392)   
+[쓰레드3](https://ddo-o.tistory.com/54)   
+[랜덤함수](http://blog.naver.com/PostView.nhn?blogId=jydev&logNo=220714960410&parentCategoryNo=&categoryNo=&viewDate=&isShowPopularPosts=false&from=postView)   
+[이미지](https://opengameart.org/)   
